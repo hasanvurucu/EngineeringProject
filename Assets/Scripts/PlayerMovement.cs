@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    #region Movement Variables
+
     public float speed;
-    public FixedJoystick variableJoystick;
+    public FixedJoystick movementJoystick;
     private Rigidbody rb;
 
-    Vector2 mouseInitialPos;
-    Vector2 mouseCurrentPos;
+    #endregion
 
-    Joystick joystick;
+    public Animator playerAnimator;
 
     void Start()
     {
@@ -19,8 +20,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Vector3 direction = Vector3.forward * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
-        rb.velocity = direction * speed;
+        MovementHandler();
     }
 
     private void Update()
@@ -28,14 +28,20 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    /*
-    public float speed;
-    public VariableJoystick variableJoystick;
-    public Rigidbody rb;
-
-    public void FixedUpdate()
+    private void MovementHandler()
     {
-        Vector3 direction = Vector3.forward * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
-        rb.AddForce(direction * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
-    } */
+        Vector3 direction = Vector3.forward * movementJoystick.Vertical + Vector3.right * movementJoystick.Horizontal;
+        rb.velocity = direction * speed;
+
+        if(rb.velocity.magnitude > 0f)
+        {
+            playerAnimator.SetBool("isRunning", true);
+
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
+        else
+        {
+            playerAnimator.SetBool("isRunning", false);
+        }
+    }
 }
