@@ -1895,6 +1895,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Standing Idle
       objectReference: {fileID: 0}
+    - target: {fileID: 7307535121243759794, guid: 540b6d3e677a64e45b028dd0e6890313, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 96eb42956b63679499724c0c80719b2c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 540b6d3e677a64e45b028dd0e6890313, type: 3}
 --- !u!1 &1471289286
@@ -2915,7 +2919,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f757bf045bf9e924fa49aa03045f8a8d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
