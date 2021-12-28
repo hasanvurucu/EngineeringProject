@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class UIfunctions : MonoBehaviour
 {
+    [SerializeField] private PlayerAbilities playerAbilities;
+
     public void Interact()
     {
         Debug.Log("Interacted");
+
+        playerAbilities.BreakOtherObject();
     }
 }
