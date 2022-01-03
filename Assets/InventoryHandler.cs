@@ -44,8 +44,14 @@ public class InventoryHandler : MonoBehaviour
         {
             if(i < allTags.Length)
             {
-                Slots[i].transform.GetChild(0).GetComponent<Image>().sprite = collectibleSprites[i];
-                Slots[i].transform.GetChild(1).GetComponent<Text>().text = PlayerPrefs.GetInt(allTags[i]).ToString();
+                if(PlayerPrefs.GetInt(allTags[i]) > 0)
+                {
+                    Slots[i].transform.GetChild(0).GetComponent<Image>().sprite = collectibleSprites[i];
+                    Slots[i].transform.GetChild(1).GetComponent<Text>().text = PlayerPrefs.GetInt(allTags[i]).ToString();
+                }else
+                {
+                    continue;
+                }
             }
             else
             {
