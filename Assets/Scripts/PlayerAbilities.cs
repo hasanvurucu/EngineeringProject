@@ -9,6 +9,8 @@ public class PlayerAbilities : MonoBehaviour
 
     [SerializeField] private Button InteractButton;
 
+    [SerializeField] private GameObject CollectibleWoodPrefab;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Tree")
@@ -38,6 +40,8 @@ public class PlayerAbilities : MonoBehaviour
             InRangeObject.transform.GetChild(1).gameObject.GetComponent<Collider>().enabled = false;
 
             InteractButton.interactable = false;
+
+            DropWood(temp);
         }
     }
 
@@ -71,5 +75,10 @@ public class PlayerAbilities : MonoBehaviour
         yield return new WaitForSeconds(1.3f);
         Destroy(given);
 
+    }
+
+    private void DropWood(GameObject treeObj)
+    {
+        Instantiate(CollectibleWoodPrefab, treeObj.transform.position, treeObj.transform.rotation);
     }
 }
