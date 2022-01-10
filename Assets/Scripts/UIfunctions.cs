@@ -8,7 +8,7 @@ public class UIfunctions : MonoBehaviour
 
     public void Interact()
     {
-        Debug.Log("Interacted");
+        
 
         playerAbilities.BreakOtherObject();
     }
