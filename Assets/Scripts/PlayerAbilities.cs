@@ -10,6 +10,7 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField] private Button InteractButton;
 
     [SerializeField] private GameObject CollectibleWoodPrefab;
+    [SerializeField] private GameObject tree02prefab;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -68,6 +69,9 @@ public class PlayerAbilities : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
+        StartCoroutine(GrowBackAfterSeconds(chosenToBreak.transform));
+        
+        chosenToBreak.SetActive(false);
     }
 
     IEnumerator DestroyAfterSeconds(GameObject given)
@@ -79,6 +83,32 @@ public class PlayerAbilities : MonoBehaviour
 
     private void DropWood(GameObject treeObj)
     {
-        Instantiate(CollectibleWoodPrefab, treeObj.transform.position, treeObj.transform.rotation);
+        Vector3 pos = new Vector3(treeObj.transform.position.x, treeObj.transform.position.y + 1, treeObj.transform.position.z);
+       
+        Instantiate(CollectibleWoodPrefab, pos, treeObj.transform.rotation);
+    }
+
+    IEnumerator GrowBackAfterSeconds(Transform given)
+    {
+        yield return new WaitForSeconds(10f);
+
+        GameObject spawnedObject = Instantiate(tree02prefab, given.position, given.rotation);
+
+        Destroy(given.gameObject);
+
+        spawnedObject.transform.localScale = Vector3.zero;
+
+        float t = 0;
+
+        Vector3 targetScale = new Vector3(0.7f, 0.7f, 0.7f);
+
+        while(t < 1)
+        {
+            t += Time.deltaTime/2;
+
+            spawnedObject.transform.localScale = Vector3.Lerp(spawnedObject.transform.localScale, targetScale, t);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
