@@ -41,8 +41,6 @@ public class PlayerAbilities : MonoBehaviour
             InRangeObject.transform.GetChild(1).gameObject.GetComponent<Collider>().enabled = false;
 
             InteractButton.interactable = false;
-
-            DropWood(temp);
         }
     }
 
@@ -69,46 +67,16 @@ public class PlayerAbilities : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
-        StartCoroutine(GrowBackAfterSeconds(chosenToBreak.transform));
-        
-        chosenToBreak.SetActive(false);
+        chosenToBreak.GetComponent<Collider>().enabled = false;
+        chosenToBreak.transform.GetChild(1).GetComponent<Collider>().enabled = false;
+
+        chosenToBreak.GetComponent<TreeInfo>().Breaking();
     }
 
     IEnumerator DestroyAfterSeconds(GameObject given)
     {
         yield return new WaitForSeconds(1.3f);
         Destroy(given);
-
     }
-
-    private void DropWood(GameObject treeObj)
-    {
-        Vector3 pos = new Vector3(treeObj.transform.position.x, treeObj.transform.position.y + 1, treeObj.transform.position.z);
-       
-        Instantiate(CollectibleWoodPrefab, pos, treeObj.transform.rotation);
-    }
-
-    IEnumerator GrowBackAfterSeconds(Transform given)
-    {
-        yield return new WaitForSeconds(10f);
-
-        GameObject spawnedObject = Instantiate(tree02prefab, given.position, given.rotation);
-
-        Destroy(given.gameObject);
-
-        spawnedObject.transform.localScale = Vector3.zero;
-
-        float t = 0;
-
-        Vector3 targetScale = new Vector3(0.7f, 0.7f, 0.7f);
-
-        while(t < 1)
-        {
-            t += Time.deltaTime/2;
-
-            spawnedObject.transform.localScale = Vector3.Lerp(spawnedObject.transform.localScale, targetScale, t);
-
-            yield return new WaitForEndOfFrame();
-        }
-    }
+    
 }
