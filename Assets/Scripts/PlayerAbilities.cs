@@ -20,11 +20,25 @@ public class PlayerAbilities : MonoBehaviour
 
             InteractButton.interactable = true;
         }
+
+        if(other.tag == "Stone")
+        {
+            InRangeObject = other.transform.parent.gameObject;
+
+            InteractButton.interactable = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if(other.tag == "Tree")
+        {
+            InRangeObject = null;
+
+            InteractButton.interactable = false;
+        }
+
+        if (other.tag == "Stone")
         {
             InRangeObject = null;
 
@@ -37,7 +51,16 @@ public class PlayerAbilities : MonoBehaviour
         if(InRangeObject != null)
         {
             GameObject temp = InRangeObject;
-            StartCoroutine(BreakingProcess(temp));
+
+            if(temp.tag == "Tree")
+            {
+                StartCoroutine(BreakingProcess(temp));
+            }
+            else if(temp.tag == "Stone")
+            {
+                StartCoroutine(BreakingProcessStone(temp));
+            }
+
             InRangeObject.transform.GetChild(1).gameObject.GetComponent<Collider>().enabled = false;
 
             InteractButton.interactable = false;
@@ -71,6 +94,13 @@ public class PlayerAbilities : MonoBehaviour
         chosenToBreak.transform.GetChild(1).GetComponent<Collider>().enabled = false;
 
         chosenToBreak.GetComponent<TreeInfo>().Breaking();
+    }
+
+    IEnumerator BreakingProcessStone(GameObject chosenToBreak)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        Debug.Log("Breaking stone");
     }
 
     IEnumerator DestroyAfterSeconds(GameObject given)

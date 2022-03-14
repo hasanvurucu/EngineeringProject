@@ -8,6 +8,7 @@ TagManager:
   - Tree
   - Missile
   - Wood
+  - Stone
   layers:
   - Default
   - TransparentFX
