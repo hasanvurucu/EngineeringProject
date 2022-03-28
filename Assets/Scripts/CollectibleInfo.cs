@@ -134,7 +134,7 @@ public class CollectibleInfo : MonoBehaviour
 
         while(t < 1)
         {
-            t += Time.deltaTime;
+            t += Time.deltaTime / 2;
 
             gameObject.transform.localScale = Vector3.Lerp(gameObject.transform.localScale, initialScale, t);
 

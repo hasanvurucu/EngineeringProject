@@ -1719,8 +1719,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.8774555, y: 1, z: 1.8453989}
-  m_Center: {x: -0.17590034, y: 0.5, z: 0.16178465}
+  m_Size: {x: 1.8774555, y: 2.4941328, z: 1.8453989}
+  m_Center: {x: -0.17590034, y: 1.2470664, z: 0.16178465}
 --- !u!114 &5687644260887133270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1735,7 +1735,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceLevel: 1
   throwableParticle: {fileID: 7796638091355360472, guid: d4b7c305f52413343b73742144cfdf88, type: 3}
-  TagOfObject: RockAmount
+  TagOfObject: StoneAmount
+  respawnCooldown: 0
+  respawnTime: 10
 --- !u!1 &5687644261524360265
 GameObject:
   m_ObjectHideFlags: 0
