@@ -7865,6 +7865,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree01
       objectReference: {fileID: 0}
+    - target: {fileID: 4609818695773753903, guid: 1bca8e95643138a42adeba1922fd1535, type: 3}
+      propertyPath: respawnTime
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bca8e95643138a42adeba1922fd1535, type: 3}
 --- !u!1001 &5687644260395048820
@@ -7929,6 +7933,14 @@ PrefabInstance:
     - target: {fileID: 5687644260887133269, guid: 953cf1d7370e1764f8979047e2e46206, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687644260887133270, guid: 953cf1d7370e1764f8979047e2e46206, type: 3}
+      propertyPath: TagOfObject
+      value: StoneAmount
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687644260887133270, guid: 953cf1d7370e1764f8979047e2e46206, type: 3}
+      propertyPath: respawnTime
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5687644260887133291, guid: 953cf1d7370e1764f8979047e2e46206, type: 3}
       propertyPath: m_Name
