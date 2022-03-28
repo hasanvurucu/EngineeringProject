@@ -6,6 +6,11 @@ public class UIfunctions : MonoBehaviour
 {
     [SerializeField] private PlayerAbilities playerAbilities;
     [SerializeField] private PlayerAnimations playerAnimations;
+
+    //Special parameters
+    private float axeHitCooldown = 1.2f;
+    private bool axeHitReady = true;
+
     public void Interact()
     {
         //Breaking tree
@@ -17,7 +22,22 @@ public class UIfunctions : MonoBehaviour
 
     public void AxeHit()
     {
-        playerAbilities.AxeHit();
-        playerAnimations.ChoppingAnim();
+        Debug.Log("axe hit button attempt");
+        if (axeHitReady)
+        {
+            Debug.Log("axe hit command worked");
+            playerAbilities.AxeHit();
+            playerAnimations.ChoppingAnim();
+            StartCoroutine(AxeHitCooldown());
+        }
+    }
+
+    IEnumerator AxeHitCooldown()
+    {
+        axeHitReady = false;
+
+        yield return new WaitForSeconds(axeHitCooldown);
+
+        axeHitReady = true;
     }
 }
