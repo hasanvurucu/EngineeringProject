@@ -5,108 +5,38 @@ using UnityEngine.UI;
 
 public class PlayerAbilities : MonoBehaviour
 {
-    private GameObject InRangeObject;
-
     [SerializeField] private Button InteractButton;
 
     [SerializeField] private GameObject CollectibleWoodPrefab;
     [SerializeField] private GameObject tree02prefab;
 
-    private void OnTriggerEnter(Collider other)
+    [SerializeField] private GameObject AxeToolParentObject;
+
+    public void AxeHit()
     {
-        if(other.tag == "Tree")
-        {
-            InRangeObject = other.transform.parent.gameObject;
-
-            InteractButton.interactable = true;
-        }
-
-        if(other.tag == "Stone")
-        {
-            InRangeObject = other.transform.parent.gameObject;
-
-            InteractButton.interactable = true;
-        }
+        ActivateToolCollider(AxeToolParentObject);
     }
 
-    private void OnTriggerExit(Collider other)
+    private void ActivateToolCollider(GameObject givenParent)
     {
-        if(other.tag == "Tree")
+        for(int i = 0; i < givenParent.transform.childCount; i++)
         {
-            InRangeObject = null;
-
-            InteractButton.interactable = false;
-        }
-
-        if (other.tag == "Stone")
-        {
-            InRangeObject = null;
-
-            InteractButton.interactable = false;
-        }
-    }
-
-    public void BreakOtherObject()
-    {
-        if(InRangeObject != null)
-        {
-            GameObject temp = InRangeObject;
-
-            if(temp.tag == "Tree")
+            if(givenParent.transform.GetChild(i).gameObject.activeInHierarchy)
             {
-                StartCoroutine(BreakingProcess(temp));
+                StartCoroutine(ToolColliderActivationStatus(givenParent.transform.GetChild(i).gameObject));
+                break;
             }
-            else if(temp.tag == "Stone")
-            {
-                StartCoroutine(BreakingProcessStone(temp));
-            }
-
-            InRangeObject.transform.GetChild(1).gameObject.GetComponent<Collider>().enabled = false;
-
-            InteractButton.interactable = false;
         }
     }
 
-
-
-    IEnumerator BreakingProcess(GameObject chosenToBreak)
+    IEnumerator ToolColliderActivationStatus(GameObject chosenTool)
     {
         yield return new WaitForSeconds(0.1f);
+        chosenTool.GetComponent<Collider>().enabled = true;
 
-        GameObject[] Groups = {
-            chosenToBreak.transform.GetChild(0).GetChild(0).gameObject,
-            chosenToBreak.transform.GetChild(0).GetChild(1).gameObject,
-            chosenToBreak.transform.GetChild(0).GetChild(2).gameObject };
+        yield return new WaitForSeconds(0.5f);
 
-        for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < Groups[i].transform.childCount; j++)
-            {
-                Groups[i].transform.GetChild(j).gameObject.AddComponent<MeshCollider>().convex = true;
-                Groups[i].transform.GetChild(j).gameObject.AddComponent<Rigidbody>();
-                StartCoroutine(DestroyAfterSeconds(Groups[i].transform.GetChild(j).gameObject));
-            }
-
-            yield return new WaitForSeconds(1f);
-        }
-
-        chosenToBreak.GetComponent<Collider>().enabled = false;
-        chosenToBreak.transform.GetChild(1).GetComponent<Collider>().enabled = false;
-
-        chosenToBreak.GetComponent<TreeInfo>().Breaking();
-    }
-
-    IEnumerator BreakingProcessStone(GameObject chosenToBreak)
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        Debug.Log("Breaking stone");
-    }
-
-    IEnumerator DestroyAfterSeconds(GameObject given)
-    {
-        yield return new WaitForSeconds(1.3f);
-        Destroy(given);
+        chosenTool.GetComponent<Collider>().enabled = false;
     }
     
 }

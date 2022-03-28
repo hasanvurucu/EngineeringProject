@@ -10,14 +10,6 @@ public class PlayerAnimations : MonoBehaviour
         playerAnimator = transform.GetChild(0).GetComponent<Animator>();
     }
 
-    void Update()
-    {
-        if(Input.GetKeyUp(KeyCode.G))
-        {
-            ChoppingAnim();
-        }
-    }
-
     public void ChoppingAnim()
     {
         playerAnimator.SetTrigger("isChopping");

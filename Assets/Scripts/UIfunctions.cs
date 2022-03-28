@@ -9,9 +9,15 @@ public class UIfunctions : MonoBehaviour
     public void Interact()
     {
         //Breaking tree
+        /*
+        playerAbilities.
 
-        playerAbilities.BreakOtherObject();
+        playerAnimations.ChoppingAnim(); */
+    }
 
+    public void AxeHit()
+    {
+        playerAbilities.AxeHit();
         playerAnimations.ChoppingAnim();
     }
 }

@@ -37,9 +37,6 @@ public class CollectibleInfo : MonoBehaviour
 
     private void Update()
     {
-        if (pieceCount > 0)
-            if (Input.GetKeyUp(KeyCode.Space))
-                BreakPiece();
 
     }
     public void BreakPiece()
