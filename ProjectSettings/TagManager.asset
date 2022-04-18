@@ -9,6 +9,7 @@ TagManager:
   - Missile
   - Wood
   - Stone
+  - CraftingTable
   layers:
   - Default
   - TransparentFX
