@@ -10,7 +10,7 @@ public class InventoryHandler : MonoBehaviour
 
     private string[] allTags;
 
-    [SerializeField] private Sprite[] collectibleSprites;
+    public Sprite[] collectibleSprites;
 
     void Awake()
     {
@@ -32,10 +32,12 @@ public class InventoryHandler : MonoBehaviour
 
     private void GetTags()
     {
-        allTags = new string[2];
+        allTags = new string[3];
 
         allTags[0] = Tags.WoodAmountTag;
         allTags[1] = Tags.StoneAmountTag;
+
+        allTags[2] = Tags.AxeAmountTag;
     }
 
     private void SetInventory()
