@@ -9,12 +9,12 @@ public class PlayerCollisions : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Wood")
+        if (collision.gameObject.tag == "Wood")
         {
             CollectCollided(Tags.WoodAmountTag, collision.gameObject);
         }
 
-        if(collision.gameObject.tag == "Stone")
+        if (collision.gameObject.tag == "Stone")
         {
             CollectCollided(Tags.StoneAmountTag, collision.gameObject);
         }
@@ -22,7 +22,7 @@ public class PlayerCollisions : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "CraftingTable")
+        if (other.tag == "CraftingTable")
         {
             StopAllCoroutines();
             StartCoroutine(AppearDisappear(true));
@@ -49,7 +49,7 @@ public class PlayerCollisions : MonoBehaviour
         else
             targetSize = Vector3.zero;
 
-        while(t < 1)
+        while (t < 1)
         {
             t += Time.deltaTime;
 
