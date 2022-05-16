@@ -56,6 +56,8 @@ public class CraftingHandler : MonoBehaviour
                 }
             }
 
+            inventoryHandler.SetInventory();
+
             int temp = PlayerPrefs.GetInt(Tags.AxeAmountTag);
             temp += 1;
             PlayerPrefs.SetInt(Tags.AxeAmountTag, temp);

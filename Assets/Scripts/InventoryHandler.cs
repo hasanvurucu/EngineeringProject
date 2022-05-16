@@ -11,6 +11,7 @@ public class InventoryHandler : MonoBehaviour
     private string[] allTags;
 
     public Sprite[] collectibleSprites;
+    public Sprite defaultSprite;
 
     void Awake()
     {
@@ -40,16 +41,18 @@ public class InventoryHandler : MonoBehaviour
         allTags[2] = Tags.AxeAmountTag;
     }
 
-    private void SetInventory()
+    public void SetInventory()
     {
+        int j = 0;
         for(int i = 0; i < Inventory.transform.childCount; i++)
         {
             if(i < allTags.Length)
             {
                 if(PlayerPrefs.GetInt(allTags[i]) > 0)
                 {
-                    Slots[i].transform.GetChild(0).GetComponent<Image>().sprite = collectibleSprites[i];
-                    Slots[i].transform.GetChild(1).GetComponent<Text>().text = PlayerPrefs.GetInt(allTags[i]).ToString();
+                    Slots[j].transform.GetChild(0).GetComponent<Image>().sprite = collectibleSprites[i];
+                    Slots[j].transform.GetChild(1).GetComponent<Text>().text = PlayerPrefs.GetInt(allTags[i]).ToString();
+                    j++;
                 }else
                 {
                     continue;
@@ -59,6 +62,12 @@ public class InventoryHandler : MonoBehaviour
             {
                 //Do nothing
             }
+        }
+
+        for(; j < Inventory.transform.childCount; j++)
+        {
+            Slots[j].transform.GetChild(0).GetComponent<Image>().sprite = defaultSprite;
+            Slots[j].transform.GetChild(1).GetComponent<Text>().text = "";
         }
     }
 
