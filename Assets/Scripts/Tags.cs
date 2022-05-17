@@ -8,4 +8,6 @@ public class Tags
     public const string StoneAmountTag = "StoneAmount";
 
     public const string AxeAmountTag = "AxeAmount";
+
+    public const string PlayerTag = "Player";
 }
