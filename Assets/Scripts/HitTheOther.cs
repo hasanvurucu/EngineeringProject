@@ -23,5 +23,10 @@ public class HitTheOther : MonoBehaviour
             other.GetComponent<CollectibleInfo>().BreakPiece(); //break piece of other
             this.gameObject.GetComponent<Collider>().enabled = false; //if made a hit, deactivate the collider
         }
+
+        if(other.GetComponent<BasicEnemyController>() != null)
+        {
+            other.GetComponent<BasicEnemyController>().GetHit(2 /*Send damage amount from here*/);
+        }
     }
 }
