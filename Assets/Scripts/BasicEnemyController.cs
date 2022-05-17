@@ -6,6 +6,8 @@ public class BasicEnemyController : MonoBehaviour
 {
     private GameObject target;
 
+    private Transform oppositeWay;
+
     [SerializeField] private float speed = 3;
     private float attackCooldown;
 
@@ -47,27 +49,39 @@ public class BasicEnemyController : MonoBehaviour
     {
         if (target != null)
         {
-            transform.LookAt(target.transform);
-
-            if ((transform.position - target.transform.position).magnitude >= 1.7)
+            if(HP >= 2) //Fight the target
             {
+                transform.LookAt(target.transform);
+
+                if ((transform.position - target.transform.position).magnitude >= 1.7)
+                {
+                    Vector3 pos = transform.position;
+                    pos += transform.forward * speed * Time.deltaTime;
+                    transform.position = pos;
+
+                    attackCooldown = 2;
+                }
+                else //Close enough to the player
+                {
+                    //prepare to hit
+                    attackCooldown -= Time.deltaTime;
+
+                    if(attackCooldown <= 0f)
+                    {
+                        Debug.Log("Attack!");
+                        attackCooldown = 2f;
+                    }
+                }
+            }else //Runaway from the target
+            {
+                transform.LookAt(2 * transform.position - target.transform.position);
+
                 Vector3 pos = transform.position;
                 pos += transform.forward * speed * Time.deltaTime;
                 transform.position = pos;
 
                 attackCooldown = 2;
-            }
-            else //Close enough to the player
-            {
-                //prepare to hit
-                attackCooldown -= Time.deltaTime;
-
-                if(attackCooldown <= 0f)
-                {
-                    Debug.Log("Attack!");
-                    attackCooldown = 2f;
-                }
-            }
+            } 
         }
     }
 
