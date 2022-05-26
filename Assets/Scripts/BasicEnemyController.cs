@@ -12,9 +12,12 @@ public class BasicEnemyController : MonoBehaviour
     private float attackCooldown;
 
     [SerializeField] private float HP = 5;
+
+    private Animator animator;
     void Start()
     {
         attackCooldown = 2;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -25,6 +28,10 @@ public class BasicEnemyController : MonoBehaviour
         CheckHpStatus();
 
         BasicSelfHealing();
+
+        Vector3 pos = transform.position;
+        pos.y = 0f;
+        transform.position = pos;
     }
 
     private void CheckHpStatus()
@@ -51,18 +58,25 @@ public class BasicEnemyController : MonoBehaviour
         {
             if(HP >= 2) //Fight the target
             {
-                transform.LookAt(target.transform);
+                //transform.LookAt(target.transform);
+                var lookPos = target.transform.position - transform.position;
+                lookPos.y = 0;
+                var rotation = Quaternion.LookRotation(lookPos);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime *5);
 
-                if ((transform.position - target.transform.position).magnitude >= 1.7)
+                if ((transform.position - target.transform.position).magnitude >= 1.75)
                 {
                     Vector3 pos = transform.position;
                     pos += transform.forward * speed * Time.deltaTime;
                     transform.position = pos;
 
                     attackCooldown = 2;
+
+                    animator.SetBool("isRunning", true);
                 }
                 else //Close enough to the player
                 {
+                    animator.SetBool("isRunning", false);
                     //prepare to hit
                     attackCooldown -= Time.deltaTime;
 
@@ -70,6 +84,12 @@ public class BasicEnemyController : MonoBehaviour
                     {
                         Debug.Log("Attack!");
                         attackCooldown = 2f;
+
+                        animator.SetBool("isAttacking", true);
+                    }
+                    else
+                    {
+                        animator.SetBool("isAttacking", false);
                     }
                 }
             }else //Runaway from the target
@@ -81,6 +101,9 @@ public class BasicEnemyController : MonoBehaviour
                 transform.position = pos;
 
                 attackCooldown = 2;
+
+                animator.SetBool("isAttacking", false);
+                animator.SetBool("isRunning", true);
             } 
         }
     }
@@ -93,6 +116,8 @@ public class BasicEnemyController : MonoBehaviour
     public void ReleaseTarget()
     {
         target = null;
+
+        animator.SetBool("isRunning", false);
     }
 
     public void GetHit(int damageAmount)
