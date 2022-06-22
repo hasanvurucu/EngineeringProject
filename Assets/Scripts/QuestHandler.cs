@@ -19,7 +19,7 @@ public class QuestHandler : MonoBehaviour
         currentDialogIndex = PlayerPrefs.GetInt(Tags.CurrentDialogIndexTag);
         mainQuestIndex = PlayerPrefs.GetInt(Tags.MainQuestIndexTag);
 
-        //questText.text = questInfo.QuestDialogs[currentDialogIndex];
+        questText.text = questInfo.QuestDialogs[currentDialogIndex];
     }
 
 
@@ -28,12 +28,12 @@ public class QuestHandler : MonoBehaviour
         //Check for Quest[0]
         if(mainQuestIndex == 0 && currentDialogIndex == 7)
         {
-            if(PlayerPrefs.GetInt(Tags.WoodAmountTag) < 5)
+            if(PlayerPrefs.GetInt(Tags.WoodAmountTag) < 10)
             {
-                nextDialogButton.enabled = false;
+                nextDialogButton.interactable = false;
             }else
             {
-                nextDialogButton.enabled = true;
+                nextDialogButton.interactable = true;
                 mainQuestIndex++;
                 PlayerPrefs.SetInt(Tags.MainQuestIndexTag, mainQuestIndex);
             }
@@ -44,10 +44,10 @@ public class QuestHandler : MonoBehaviour
         {
             if(PlayerPrefs.GetInt(Tags.EnemySoulAmountTag) < 5)
             {
-                nextDialogButton.enabled = false;
+                nextDialogButton.interactable = false;
             }else
             {
-                nextDialogButton.enabled = true;
+                nextDialogButton.interactable = true;
                 mainQuestIndex++;
                 PlayerPrefs.SetInt(Tags.MainQuestIndexTag, mainQuestIndex);
             }
@@ -56,17 +56,25 @@ public class QuestHandler : MonoBehaviour
         //End of the quests
         if(currentDialogIndex == 15)
         {
-            nextDialogButton.enabled = false;
+            nextDialogButton.interactable = false;
         }
 
     }
 
     public void NextDialogButton()
     {
+        //For Quest[0]
+        if(currentDialogIndex == 7)
+        {
+            int temp = PlayerPrefs.GetInt(Tags.WoodAmountTag);
+            temp -= 10;
+            PlayerPrefs.SetInt(Tags.WoodAmountTag, temp);
+        }
+
         currentDialogIndex++;
         PlayerPrefs.SetInt(Tags.CurrentDialogIndexTag, currentDialogIndex);
 
-        //questText.text = questInfo.QuestDialogs[currentDialogIndex];
+        questText.text = questInfo.QuestDialogs[currentDialogIndex];
     }
 
     /*

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerCollisions : MonoBehaviour
 {
     [SerializeField] private Transform craftingPanel;
+    [SerializeField] private Transform questPanel;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -25,7 +26,13 @@ public class PlayerCollisions : MonoBehaviour
         if (other.tag == "CraftingTable")
         {
             StopAllCoroutines();
-            StartCoroutine(AppearDisappear(true));
+            StartCoroutine(AppearDisappear(true, craftingPanel));
+        }
+
+        if (other.tag == "Erlik")
+        {
+            StopAllCoroutines();
+            StartCoroutine(AppearDisappear(true, questPanel));
         }
     }
 
@@ -34,11 +41,17 @@ public class PlayerCollisions : MonoBehaviour
         if (other.tag == "CraftingTable")
         {
             StopAllCoroutines();
-            StartCoroutine(AppearDisappear(false));
+            StartCoroutine(AppearDisappear(false, craftingPanel));
+        }
+
+        if (other.tag == "Erlik")
+        {
+            StopAllCoroutines();
+            StartCoroutine(AppearDisappear(false, questPanel));
         }
     }
 
-    IEnumerator AppearDisappear(bool isAppearing)
+    IEnumerator AppearDisappear(bool isAppearing, Transform chosenObj)
     {
         float t = 0;
 
@@ -53,7 +66,7 @@ public class PlayerCollisions : MonoBehaviour
         {
             t += Time.deltaTime;
 
-            craftingPanel.localScale = Vector3.Lerp(craftingPanel.localScale, targetSize, t);
+            chosenObj.localScale = Vector3.Lerp(chosenObj.localScale, targetSize, t);
 
             yield return new WaitForEndOfFrame();
         }
