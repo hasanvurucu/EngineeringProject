@@ -37,12 +37,14 @@ public class InventoryHandler : MonoBehaviour
 
     private void GetTags()
     {
-        allTags = new string[3];
+        allTags = new string[4];
 
         allTags[0] = Tags.WoodAmountTag;
         allTags[1] = Tags.StoneAmountTag;
 
         allTags[2] = Tags.AxeAmountTag;
+
+        allTags[3] = Tags.EnemySoulAmountTag;
     }
 
     public void SetInventory()

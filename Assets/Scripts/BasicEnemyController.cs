@@ -40,6 +40,10 @@ public class BasicEnemyController : MonoBehaviour
         {
             Debug.Log("Basic enemy died");
 
+            int temp = PlayerPrefs.GetInt(Tags.EnemySoulAmountTag);
+            temp++;
+            PlayerPrefs.SetInt(Tags.EnemySoulAmountTag, temp);
+
             Destroy(gameObject);
         }
     }

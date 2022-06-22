@@ -11,6 +11,14 @@ public class UIfunctions : MonoBehaviour
     private float axeHitCooldown = 1.2f;
     private bool axeHitReady = true;
 
+    void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            AxeHit();
+        }
+    }
+
     public void Interact()
     {
         //Breaking tree

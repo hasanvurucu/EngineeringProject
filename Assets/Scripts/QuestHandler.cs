@@ -71,6 +71,13 @@ public class QuestHandler : MonoBehaviour
             PlayerPrefs.SetInt(Tags.WoodAmountTag, temp);
         }
 
+        if(currentDialogIndex == 12)
+        {
+            int temp = PlayerPrefs.GetInt(Tags.EnemySoulAmountTag);
+            temp -= 5;
+            PlayerPrefs.SetInt(Tags.EnemySoulAmountTag, temp);
+        }
+
         currentDialogIndex++;
         PlayerPrefs.SetInt(Tags.CurrentDialogIndexTag, currentDialogIndex);
 
