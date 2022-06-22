@@ -25,7 +25,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        
+        PositionLimiter();
+    }
+
+    private void PositionLimiter()
+    {
+        transform.position = new Vector3(
+        Mathf.Clamp(transform.position.x, -70, 20),
+        Mathf.Clamp(transform.position.y, 0, 2),
+        Mathf.Clamp(transform.position.z, -10, 80));
     }
 
     private void MovementHandler()
