@@ -1,19 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class QuestHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public int currentDialogIndex;
+    [SerializeField] private QuestInfo questInfo;
+    [SerializeField] private Text questText;
+    [SerializeField] private Button nextDialogButton;
+
+    private int mainQuestIndex;
+
+
+    [SerializeField] private 
+
     void Start()
     {
-        
+        currentDialogIndex = PlayerPrefs.GetInt(Tags.CurrentDialogIndexTag);
+        mainQuestIndex = PlayerPrefs.GetInt(Tags.MainQuestIndexTag);
+
+        //questText.text = questInfo.QuestDialogs[currentDialogIndex];
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        //Check for Quest[0]
+        if(mainQuestIndex == 0 && currentDialogIndex == 7)
+        {
+            if(PlayerPrefs.GetInt(Tags.WoodAmountTag) < 5)
+            {
+                nextDialogButton.enabled = false;
+            }else
+            {
+                nextDialogButton.enabled = true;
+                mainQuestIndex++;
+                PlayerPrefs.SetInt(Tags.MainQuestIndexTag, mainQuestIndex);
+            }
+        }
+
+        //Check for Quest[1]
+        if (mainQuestIndex == 1 && currentDialogIndex == 12)
+        {
+            if(PlayerPrefs.GetInt(Tags.EnemySoulAmountTag) < 5)
+            {
+                nextDialogButton.enabled = false;
+            }else
+            {
+                nextDialogButton.enabled = true;
+                mainQuestIndex++;
+                PlayerPrefs.SetInt(Tags.MainQuestIndexTag, mainQuestIndex);
+            }
+        }
+
+        //End of the quests
+        if(currentDialogIndex == 15)
+        {
+            nextDialogButton.enabled = false;
+        }
+
+    }
+
+    public void NextDialogButton()
+    {
+        currentDialogIndex++;
+        PlayerPrefs.SetInt(Tags.CurrentDialogIndexTag, currentDialogIndex);
+
+        //questText.text = questInfo.QuestDialogs[currentDialogIndex];
     }
 
     /*

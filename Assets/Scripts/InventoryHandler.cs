@@ -13,10 +13,14 @@ public class InventoryHandler : MonoBehaviour
     public Sprite[] collectibleSprites;
     public Sprite defaultSprite;
 
+    private bool inventoryHidden;
+
     void Awake()
     {
         GetSlots();
         GetTags();
+
+        inventoryHidden = false;
     }
     void Update()
     {
@@ -71,5 +75,37 @@ public class InventoryHandler : MonoBehaviour
         }
     }
 
+    public void ShowOrHideInventory()
+    {
+        float targetScale = 0;
+        
+        if(inventoryHidden)
+        {
+            targetScale = 0.5f;
+        }else
+        {
+            targetScale = 0;
+        }
+
+        StopCoroutine("ResizeInventory");
+        StartCoroutine(ResizeInventory(new Vector3(targetScale, targetScale, 1)));
+    }
+
+    IEnumerator ResizeInventory(Vector3 targetScale)
+    {
+        float t = 0;
+        inventoryHidden = !inventoryHidden;
+
+        while(t < 1)
+        {
+            t += Time.deltaTime * 2;
+
+            transform.localScale = Vector3.Lerp(transform.localScale, targetScale, t);
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        transform.localScale = targetScale;
+    }
 
 }

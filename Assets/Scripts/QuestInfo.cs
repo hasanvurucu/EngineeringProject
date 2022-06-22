@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class QuestInfo : MonoBehaviour
 {
-    private string[] QuestDialogs = new string[99];
+    [HideInInspector] public string[] QuestDialogs = new string[99];
 
     private void Awake()
     {
@@ -16,14 +16,14 @@ public class QuestInfo : MonoBehaviour
         QuestDialogs[4] = "...They wanted more and started to steal from others. So I unleashed this scourge upon them...";
         QuestDialogs[5] = "...But I will give them a second chance. If you can complete the tasks that I will give you, I will remove the famine of your people.";
         QuestDialogs[6] = "Altay (Player): OK. Tell me and I will do it!";
-        QuestDialogs[7] = "Erlik: Your first task is to collect some elements for me.I need the sap of the sacred trees that grow in the nearby forest.Go there and get me what I need!";
+        QuestDialogs[7] = "Erlik: Your first task is to collect some elements for me.I need 10 of the sap of sacred trees that grow in the nearby forest.Go there and get me what I need!";
         
         //Task 2
         QuestDialogs[8] = "Altay (Player): Here your tree saps,now save my village.";
         QuestDialogs[9] = "Erlik: Not so fast young soldier. Congratulations on completing your first task. But I have another job for you. If you can complete it then I will save your people.";
         QuestDialogs[10] = "Altay (Player): What is it ?";
         QuestDialogs[11] = "Erlik: There are some creatures in the north. This creature damages the crops of the people there and kidnaps their animals...";
-        QuestDialogs[12] = "...Kill five creature, bring me their souls, save the people there, and in return, I'll save yours.";
+        QuestDialogs[12] = "...Kill five of those creatures, bring me their souls, save the people there, and in return, I'll save yours.";
         
         //Finalizing the tasks
         QuestDialogs[13] = "Altay (Player): Erlik! I killed the creature.";
